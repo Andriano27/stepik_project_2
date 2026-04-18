@@ -4,7 +4,6 @@
 
 string = input().split()
 n = int(input())
-
 def chunked(lst, size):
     result = []
     # Идем по списку с шагом size
@@ -16,7 +15,6 @@ def chunked(lst, size):
     return result
 
 print(chunked(string, n))
-
 
 
 def chunked(symbols, n):
@@ -35,8 +33,7 @@ s = input().split()
 n = int(input())
 print(chunked(s, n))
 
-
-
+#####################################################################################
 def solve():
     n = int(input())
     a = list(map(int, input().split()))
@@ -91,8 +88,6 @@ def solve():
     print(max(0, res))
 
 
-
-
 J = input()
 S = input()
 count = 0
@@ -115,10 +110,7 @@ for num in numbers:
 print(res)
 
 
-
 import sys
-
-
 def ask(indices):
     print("CHECK", len(indices), *indices)
     sys.stdout.flush()
@@ -158,11 +150,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
 
 
 def ask(indices):
@@ -206,3 +193,4 @@ def main():
 if __name__ == "__main__":
     main()
 
+########################################################################
