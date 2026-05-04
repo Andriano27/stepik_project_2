@@ -215,7 +215,7 @@ a = [[0] * m for _ in range(n)]
 # затем выводит их в виде матрицы
 for i in range(n):
     for j in range(m):
-        a[i][j] = input()
+        # a[i][j] = input()
         print(a[i][j], end=' ')
     print()
 #выводит пустую строку
@@ -250,4 +250,65 @@ new_matrix = [list(i) for i in zip(*matrix)]
 [print(*mat) for mat in matrix]
 print()
 [print(*mat) for mat in new_matrix]
+
+# Следом квадратной матрицы называется сумма элементов главной диагонали. Напишите программу,
+# которая выводит след заданной квадратной матрицы. На вход программе подается натуральное число n –
+# количество строк и столбцов в матрице, затем элементы матрицы (целые числа) построчно через пробел.
+# Программа должна вывести одно число – след заданной матрицы.
+n = int(input())
+matrix = []
+count = 0
+for i in range(n):
+    temp = [int(num) for num in input().split()]
+    matrix.append(temp)
+for r in range(n):
+    for c in range(n):
+        if r == c:
+            count += matrix[r][r]
+print(count)
+
+# 1 инпут - это 1 2 3, в нём i = 0 и cur_seq[i] = 1.
+# 2 инпут - это 4 5 6, в нём i = 1 и cur_seq[i] = 5.
+# 3 инпут - это 7 8 9, в нём i = 2 и cur_seq[i] = 9.
+# Наша матрица выглядит так:
+#  3
+#  1   2   3
+#  4   5   6
+#  7   8   9
+# и главная её диагональ - 1-5-9
+n = int(input())
+sm = 0
+for i in range(n):
+    cur_seq = input().split()
+    sm += int(cur_seq[i])
+print(sm)
+
+res = 0
+for i in range(int(input())):
+    res += int(input().split()[i])
+print(res)
+
+print(sum(int(input().split()[i]) for i in range(int(input()))))
+
+n = int(input())
+matrix = [[int(i) for i in input().split()] for _ in range(n)]
+print(sum([matrix[i][i] for i in range(n)]))
+
+# Ввод пользователя
+n = int(input())
+# Создание матрицы
+matrix = [input().split() for i in range(n)]
+# Вывод суммы главной диагонали
+print(sum([int(matrix[i][i]) for i in range(n)]))
+
+
+n = int(input())
+matrix = []
+sum = 0
+for i in range(n):
+    temp = [int(num) for num in input().split()]
+    matrix.append(temp)
+for i in range(n):
+    sum += matrix[i][i]
+print(sum)
 
