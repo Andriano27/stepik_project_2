@@ -133,5 +133,108 @@ n = int(input())
 a = [[*map(int, input().split())] for _ in range(n)]
 print(max(a[i][j] for i in range(n) for j in range(n) if j <= i <= n - j - 1 or j >= i >= n - j - 1))
 
+# Квадратная матрица разбивается на четыре четверти, ограниченные главной и побочной диагоналями:
+# верхнюю, нижнюю, левую и правую. Напишите программу, которая вычисляет сумму элементов:
+# верхней четверти; правой четверти; нижней четверти; левой четверти. На вход программе подается
+# натуральное число n – количество строк и столбцов в матрице, затем элементы матрицы (целые числа)
+# построчно через пробел. Программа должна вывести текст в соответствии с условием задачи.
+# Элементы диагоналей не учитываются.
+n = int(input())
+a = [[*map(int, input().split())] for _ in range(n)]
+t = (a[i][j] for i in range(n) for j in range(n) if i < j and i < n - 1 - j)
+r = (a[i][j] for i in range(n) for j in range(n) if i < j and i > n - 1 - j)
+b = (a[i][j] for i in range(n) for j in range(n) if i > j and i > n - 1 - j)
+l = (a[i][j] for i in range(n) for j in range(n) if i > j and i < n - 1 - j)
+print(f'''
+Верхняя четверть: {sum(t)}
+Правая четверть: {sum(r)}
+Нижняя четверть: {sum(b)}
+Левая четверть: {sum(l)}
+''')
 
 
+n = int(input())
+matrix = []
+quadrants = [['Верхняя четверть:', 0],
+             ['Правая четверть:', 0],
+             ['Нижняя четверть:', 0],
+             ['Левая четверть:', 0]]
+for _ in range(n):
+    row = [int(i) for i in input().split()]
+    matrix.append(row)
+for i in range(n):
+    for j in range(n):
+        if i < j and i + j + 1 < n :
+            quadrants[0][1] += matrix[i][j]
+        elif i < j and i + j + 1 > n:
+            quadrants[1][1] += matrix[i][j]
+        elif i > j and i + j + 1 > n:
+            quadrants[2][1] += matrix[i][j]
+        elif i > j and i + j + 1 < n:
+            quadrants[3][1] += matrix[i][j]
+for i in range(4):
+    print(quadrants[i][0], quadrants[i][1])
+
+
+n = int(input())
+mtr = [[int(ch) for ch in input().split()] for _ in range(n)]
+print('Верхняя четверть:', sum([mtr[i][j] for i in range(n) for j in range(n) if (i < j and i < n - 1 - j)]))
+print('Правая четверть:', sum([mtr[i][j] for i in range(n) for j in range(n) if (i < j and i > n - 1 - j)]))
+print('Нижняя четверть:', sum([mtr[i][j] for i in range(n) for j in range(n) if (i > j and i > n - 1 - j)]))
+print('Левая четверть:', sum([mtr[i][j] for i in range(n) for j in range(n) if (i > j and i < n - 1 - j)]))
+
+
+# Считывание матрицы n х m из строчных элементов каждый на новой строке.
+# Вариант 1: списочным выражением
+'''
+matrix = []
+for _ in range(n):
+    s = [input() for _ in range(m)]
+    matrix.append(s)
+
+'''
+# Считывание матрицы n х m из строчных элементов каждый на новой строке.
+# Вариант 2: методом append()
+'''
+matrix = []
+for i in range(n):
+    row = []
+    for j in range(m):
+        row.append(input())
+    matrix.append(row)
+
+'''
+# Считывание матрицы n х m из строчных элементов каждый на новой строке.
+# Вариант 3: коротким списочным выражением
+'''
+matrix = [[input() for _ in range(m)] for _ in range(n)]
+
+'''
+# Считывание матрицы из n строк, заполненных числами
+'''
+n = int(input())
+matrix = []
+for i in range(n):
+    temp = [int(num) for num in input().split()]
+    matrix.append(temp)
+
+'''
+
+# Функция вывода матрицы n х m из строчных элементов
+# Вариант 1: цикл с выравниванием width
+'''
+
+def print_matrix(matrix, n, m, width = 1):
+    for r in range(n):
+        for c in range(m):
+            print(str(matrix[r][c]).ljust(width), end=' ')
+        print()
+
+'''
+# Функция вывода матрицы n х m из строчных элементов
+# Вариант 2: короткая распаковка
+'''
+for row in matrix:
+    print(*row)
+
+'''
