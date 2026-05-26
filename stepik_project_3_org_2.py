@@ -164,7 +164,7 @@ for _ in range(n):
     matrix.append(row)
 for i in range(n):
     for j in range(n):
-        if i < j and i + j + 1 < n :
+        if i < j and i + j + 1 < n:
             quadrants[0][1] += matrix[i][j]
         elif i < j and i + j + 1 > n:
             quadrants[1][1] += matrix[i][j]
@@ -191,7 +191,6 @@ matrix = []
 for _ in range(n):
     s = [input() for _ in range(m)]
     matrix.append(s)
-
 '''
 # Считывание матрицы n х m из строчных элементов каждый на новой строке.
 # Вариант 2: методом append()
@@ -202,13 +201,11 @@ for i in range(n):
     for j in range(m):
         row.append(input())
     matrix.append(row)
-
 '''
 # Считывание матрицы n х m из строчных элементов каждый на новой строке.
 # Вариант 3: коротким списочным выражением
 '''
 matrix = [[input() for _ in range(m)] for _ in range(n)]
-
 '''
 # Считывание матрицы из n строк, заполненных числами
 '''
@@ -217,24 +214,21 @@ matrix = []
 for i in range(n):
     temp = [int(num) for num in input().split()]
     matrix.append(temp)
-
 '''
-
 # Функция вывода матрицы n х m из строчных элементов
 # Вариант 1: цикл с выравниванием width
 '''
-
 def print_matrix(matrix, n, m, width = 1):
     for r in range(n):
         for c in range(m):
             print(str(matrix[r][c]).ljust(width), end=' ')
         print()
-
 '''
 # Функция вывода матрицы n х m из строчных элементов
 # Вариант 2: короткая распаковка
 '''
 for row in matrix:
     print(*row)
-
 '''
+
+

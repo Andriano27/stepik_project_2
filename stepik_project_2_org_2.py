@@ -317,30 +317,30 @@ print(sum)
 # n – количество строк и столбцов в матрице, затем элементы матрицы (целые числа) построчно через пробел.
 # Программа должна вывести n чисел – для каждой строки количество элементов матрицы, больших среднего
 # арифметического элементов данной строки.
-n = int(input())
-count = 0  # количество элементов в строке, которое больше среднего
+#n = int(input())
+#count = 0  # количество элементов в строке, которое больше среднего
 
-matrix = []  # список, куда будем сохранять всю матрицу
-for i in range(n):  # цикл выполняется n раз по количеству строк
-    temp = [int(num) for num in input().split()]  # input().split() - считываем строку и разбиваем на
+#matrix = []  # список, куда будем сохранять всю матрицу
+#for i in range(n):  # цикл выполняется n раз по количеству строк
+    #temp = [int(num) for num in input().split()]  # input().split() - считываем строку и разбиваем на
     # числа, [int(num) for num in ...] - превращаем каждое число в int, temp - это одна строка матрицы
-    matrix.append(temp)  # добавляем temp в матрицу
-for r in matrix:  # перебираем строки матрицы, r - одна строка, список чисел
-    total = sum(r)/len(r)  # среднее арифметическое строки
-    for c in range(len(r)):  # идем по каждому элементу строки
-        if r[c] > total:  # если элемент больше среднего арифметического - добавляем в count
-            count += 1
-    print(count)
-    count = 0  # сбрасываем значения перед следующей строкой
-    total = 0
+    #matrix.append(temp)  # добавляем temp в матрицу
+#for r in matrix:  # перебираем строки матрицы, r - одна строка, список чисел
+    #totali = sum(r)/len(r)  # среднее арифметическое строки
+    #for c in range(len(r)):  # идем по каждому элементу строки
+        #if r[c] > totali:  # если элемент больше среднего арифметического - добавляем в count
+            #count += 1
+    #print(count)
+    #count = 0  # сбрасываем значения перед следующей строкой
+    #totali = 0
 
 
-n = int(input())
-matrix = [[int(num) for num in input().split()]for i in range(n)]
-for i in range(n):
-    st = 0
-    mid = sum(matrix[i])/n
-    for j in range(n):
-        if matrix[i][j] > mid:
-            st += 1
-    print(st)
+#n = int(input())
+#matrix = [[int(num) for num in input().split()]for i in range(n)]
+#for i in range(n):
+    #st = 0
+    #mid = sum(matrix[i])/n
+    #for j in range(n):
+        #if matrix[i][j] > mid:
+            #st += 1
+    #print(st)
