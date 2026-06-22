@@ -75,7 +75,7 @@ print(row, col)
 
 
 n, m = int(input()), int(input())
-matrix = []
+matrix: list[list[int]] = []
 for i in range(n):
     temp = [int(num) for num in input().split()]
     matrix.append(temp)
@@ -105,7 +105,9 @@ for r in range(n):
 
 
 n, m = int(input()), int(input())  # вводим значения строк и столбцов
-matrix = [input().split() for _ in range(n)]  # вводим элементы матрицы построчно
+matrix = []
+for _ in range(n):
+    matrix.append(input().split())
 col1, col2 = [int(i) for i in input().split()]  # вводим номера столбцов, подлежащих обмену,
 # переменным поэлементно присваиваются значения из списка
 for i in range(n):  # цикл по количеству строк, в нем заменяются индексы столбцов
@@ -239,9 +241,193 @@ for i in range(n):
 [print(*r) for r in zip(*[list(map(int, input().split())) for _ in range(int(input()))][::-1])]
 
 
-matrix = []
-for _ in range(int(input())):
-    matrix.append([int(x) for x in input().split()])
-for row in zip(*matrix[::-1]):
+
+
+# На шахматной доске 8×8 стоит конь. Напишите программу, которая отмечает положение коня на доске и
+# все клетки, которые бьет конь. Клетку, где стоит конь, отметьте английской буквой N, а клетки, которые
+# бьет конь, отметьте символами *, остальные клетки заполните точками. На вход программе подаются
+# координаты коня на шахматной доске в шахматной нотации (то есть в виде e4, где сначала записывается
+# номер столбца (буква от a до h, слева направо), затем номеру строки (цифра от 1 до 8, снизу вверх)).
+# Программа должна вывести на экран изображение доски, разделяя элементы пробелами.
+xy = input()
+y = '87654321'.index(xy[1])
+x = 'abcdefgh'.index(xy[0])
+board = [['.' for _ in range(8)] for _ in range(8)]  # создаем пустую доску с точками
+board[y][x] = 'N'  # ставим коня - в клетке коня стоит буква N
+moves = [(-2, -1), (-2, 1), (-1, -2), (-1, 2), (1, -2), (1, 2), (2, -1), (2, 1)]  # перемещения коня по
+# горизонтали и вертикали списком
+for dx, dy in moves:  # отмечаем клетки, где бьет конь
+    nx = x + dx  # если dx = -1, dy = -2, х = 1, y = 2, nx = 0, ny = 0
+    ny = y + dy  # клетка с индексом [0][0] - а8, поэтому ставим туда '*'
+    if 0 <= nx < 8 and 0 <= ny < 8:  # это используется, чтобы не выйти за границы доски
+        board[ny][nx] = '*'
+board[y][x] = 'N'  # после цикла ставим коня на место
+for row in board:  # выводим элементы доски через цикл
+    print(*row)  # распаковываем список и печатаем элементы через пробел
+
+
+coordinates = input()
+matrix: list[list[str]] = []
+for i in range(8):
+    matrix.append(['.'] * 8)  # заполняем точками
+# переводим шахматные координаты в индексы матрицы
+x = 8 - int(coordinates[1])
+t = abs(97 - ord(coordinates[0]))
+matrix[x][t] = 'N'
+# ищем возможные позиции
+for i in range(8):
+    for j in range(8):
+        if abs((x - j) * (t - i)) == 2:
+            matrix[j][i] = '*'
+for row in matrix:
     print(*row)
 
+
+# Магическим квадратом порядка n называется квадратная таблица размера n×n, составленная из всех чисел
+# 1,2,3, …, n ** 2так, что суммы по каждому столбцу, каждой строке и каждой из двух диагоналей равны
+# между собой. Напишите программу, которая проверяет, является ли заданная квадратная матрица магическим
+# квадратом. На вход программе подается натуральное число n – количество строк и столбцов в матрице,
+# затем элементы матрицы: n строк, по n чисел в каждой, разделенные пробелами.
+# Программа должна вывести YES, если матрица является магическим квадратом, или NO в противном случае.
+
+n = int(input())
+matrix = [[int(num) for num in input().split()] for _ in range(n)]
+
+# 1. Проверяем, что матрица содержит все числа от 1 до n**2 без повторов
+flat_list = [element for row in matrix for element in row]
+expected_numbers = set(range(1, n ** 2 + 1))
+if set(flat_list) != expected_numbers:
+    print('NO')
+else:
+    # За эталон магической суммы берем сумму первой строки
+    magic_sum = sum(matrix[0])
+    is_magic = True
+    # 2. Проверяем суммы всех строк
+    for row in matrix:
+        if sum(row) != magic_sum:
+            is_magic = False
+            break
+    # 3. Проверяем суммы всех столбцов
+    if is_magic:
+        for col in range(n):
+            col_sum = sum(matrix[row][col] for row in range(n))
+            if col_sum != magic_sum:
+                is_magic = False
+                break
+    # 4. Проверяем диагонали
+    if is_magic:
+        main_diagonal_sum = sum(matrix[i][i] for i in range(n))
+        side_diagonal_sum = sum(matrix[i][n - 1 - i] for i in range(n))
+
+        if main_diagonal_sum != magic_sum or side_diagonal_sum != magic_sum:
+            is_magic = False
+    # Выводим финальный вердикт
+    if is_magic:
+        print('YES')
+    else:
+        print('NO')
+
+
+def is_magic_square(n, matrix):
+    # создаем список для всех чисел правильной матрицы
+    correct_nums = list(range(1, n ** 2 + 1))
+    # создаем список для всех чисел нашей матрицы
+    our_nums = []
+    for row in matrix:
+        our_nums.extend(row)
+    # если эти списки не равны, значит наша матрица уже не состоит из всех чисел от 1 до n ** 2
+    # значит, мы сразу можем вернуть "NO" и не продолжать дальнейшие проверки
+    our_nums.sort()
+    if our_nums != correct_nums:
+        return "NO"
+    # в самой матрице мы уже храним все ряды (строки)
+    rows = matrix.copy()
+    # создаем список для всех столбцов
+    columns = []
+    for j in range(n):
+        cur_column = []
+        for i in range(n):
+            cur_column.append(matrix[i][j])
+        columns.append(cur_column)
+    # создаем список для диагоналей (с двумя пустыми подсписками)
+    diagonals = [[], []]
+    for i in range(n):
+        diagonals[0].append(matrix[i][i])
+        diagonals[1].append(matrix[i][n - 1 - i])
+    # соединям все строки, столбцы и диагонали в один список
+    all_lines = rows + columns + diagonals
+    # инициализируем переменные для максимальной и минимальной суммы среди всех "линий"
+    # за начальные значения возьмём сумму первой "линии"
+    max_sum = sum(all_lines[0])
+    min_sum = sum(all_lines[0])
+    for line in all_lines:
+        max_sum = max(max_sum, sum(line))
+        min_sum = min(min_sum, sum(line))
+    # теперь просто сравниваем максимальную и минимальную суммы
+    # они должны быть равны, т.к. все суммы должны быть равны
+    if max_sum != min_sum:
+        return "NO"
+    return "YES"
+n = int(input())
+matrix = [[int(el) for el in input().split()] for _ in range(n)]
+print(is_magic_square(n, matrix))
+
+
+n = int(input())
+mat = []                                            # создаем матрицу
+for _ in range(n):
+  mat.append([int(i) for i in input().split()])
+magic = True                                        # устанавливаем флаг
+unique = []                                         # пустой список уникальных значений матрицы
+for r in range(n):                                  # проверяем все элементы матрицы на уникальность и 0
+  for c in range(n):
+    if mat[r][c] in unique or mat[r][c] == 0:
+      magic = False
+      break
+    else:
+      unique.append(mat[r][c])
+total = sum(mat[0])                                 # считаем сумму первой строки матрицы
+d1 = 0
+d2 = 0
+for r in range(n):                                  # проверяем сумму значений главной и побочной диагонали
+  for c in range(n):
+    if r == c:
+      d1 += mat[r][c]
+    if r == n - 1 -c:
+      d2 += mat[r][c]
+if not d1 == d2 == total:
+  magic = False
+for i in mat:                                        # проверяем суммы всех строк матрицы
+  if sum(i) != total:
+    magic = False
+    break
+tran = [[0]*n for _ in range(n)]                     # создаем транспонированную матрицу
+for r in range(n):
+  for c in range(n):
+    tran[r][c] = mat[c][r]
+for j in tran:                                       # проверяем суммы строк(они же столбцы исходной матрицы)
+  if sum(j) != total:
+    magic = False
+    break
+if magic == True:
+  print('YES')
+else:
+  print('NO')
+
+
+def sum_matrix(n, total, matrix):
+    total += sum(matrix[i][j] for j in range(n) for i in range(n)) # сумма строк
+    total += sum(matrix[j][i] for j in range(n) for i in range(n)) # сумма столбцов
+    total += sum(matrix[i][i] for i in range(n)) # сумма главной диагонали
+    total += sum(matrix[i][n-i-1] for i in range(n)) # сумма второстепенной диагонали
+    return total
+n = int(input())
+matrix = [list(map(int, input().split())) for i in range(n)]
+total = 0
+total = sum_matrix(n, total, matrix) / (n + n + 2) # сумма матрицы деленная на количество столбцов, строк и диаг
+flag = False
+l = [matrix[i][j] for j in range(n) for i in range(n)]
+l.sort()
+if l == [i for i in range(1, n ** 2 + 1)]:
+    flag = True
+print('YES' if total == sum(matrix[-1]) and flag == True else 'NO')
